@@ -1,0 +1,35 @@
+#!perl
+
+# DATE
+# VERSION
+
+use 5.010001;
+use strict;
+use warnings;
+
+use Benchmark::Dumb qw(timethese);
+
+timethese(
+    100,
+    {
+        'env [200,"OK","foo"]' => sub { [200, "OK", "foo"] },
+        'env [200,"OK","foo",{}]' => sub { [200, "OK", "foo", {}] },
+        'naked "foo"' => sub { "foo" },
+        'list "foo"' => sub { (200, "OK", "foo") },
+    },
+);
+
+
+# ABSTRACT: Compare returning enveloped response compared to naked/list
+# PODNAME:
+
+=head1 SYNOPSIS
+
+ % bench-envres
+
+Sample output:
+
+# COMMAND: perl bin/bench-envres
+
+
+=head1 SEE ALSO
